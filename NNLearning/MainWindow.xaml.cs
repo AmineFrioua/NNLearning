@@ -8,17 +8,21 @@ namespace NNLearning
 
     public partial class MainWindow : Window
     {
-        public PointsGenerator PointsGenerator { get; set; }
+        public PointsGenerator Points { get; set; }
+
+        public ShapesGenerator Shapes { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
 
-            PointsGenerator = new PointsGenerator(100, (int)Window.Width, (int)Window.Height);
+            Points = new PointsGenerator(100, (int)Window.Width, (int)Window.Height);
 
-            PointsGenerator.DrawCircles(Screen);
+            Shapes = new ShapesGenerator((int)Window.Width, (int)Window.Height);
 
+            Points.DrawCircles(Screen);
 
+            Shapes.DrawLine(Screen);
         }
 
 

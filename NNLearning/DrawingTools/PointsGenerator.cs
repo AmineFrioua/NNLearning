@@ -34,7 +34,7 @@ namespace NNLearning.DrawingTools
                     Width = 10,
                     Height = 10,
                     Stroke = Brushes.Black,
-                    StrokeThickness = 2,
+                    StrokeThickness = 1,
                     Fill = Brushes.Blue
                 };
             }
