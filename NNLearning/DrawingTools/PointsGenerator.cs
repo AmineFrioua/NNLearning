@@ -17,7 +17,7 @@ namespace NNLearning.DrawingTools
 
         private readonly Random _myRandomizer;
 
-        public PointsGenerator(int numOfPoints, int canvasWidth, int canvasHeight)
+        public PointsGenerator(int numOfPoints, int canvasWidth, int canvasHeight, double a, double b)
         {
             _myRandomizer = new Random();
 
@@ -28,15 +28,32 @@ namespace NNLearning.DrawingTools
             for (int i = 0; i < numOfPoints; i++)
             {
                 Points[i] = GeneratePoint(canvasWidth, canvasHeight);
-                Ellipses[i] = new Ellipse()
-                {
 
-                    Width = 10,
-                    Height = 10,
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 1,
-                    Fill = Brushes.Blue
-                };
+                if (Points[i].Y >= LinearMath.LineOrd(Points[i].X, a, b))
+                {
+                    Ellipses[i] = new Ellipse()
+                    {
+
+                        Width = 10,
+                        Height = 10,
+                        Stroke = Brushes.Black,
+                        StrokeThickness = 1,
+                        Fill = Brushes.Blue
+                    };
+                }
+                else
+                {
+                    Ellipses[i] = new Ellipse()
+                    {
+
+                        Width = 10,
+                        Height = 10,
+                        Stroke = Brushes.Black,
+                        StrokeThickness = 1,
+                        Fill = Brushes.White
+                    };
+                }
+
             }
         }
 
@@ -53,7 +70,7 @@ namespace NNLearning.DrawingTools
 
                 Ellipses[i].SetValue(Canvas.LeftProperty, Points[i].X);
 
-               Ellipses[i].SetValue(Canvas.TopProperty, Points[i].Y);
+                Ellipses[i].SetValue(Canvas.TopProperty, Points[i].Y);
             }
         }
 

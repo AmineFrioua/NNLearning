@@ -16,7 +16,7 @@ namespace NNLearning.DrawingTools
         public Line MyLine { get; set; }
 
         private readonly int _width, _height;
-        private double _a=0.5, _b=0.96;
+        public double A=0.5, B=0.96;
 
         public ShapesGenerator(int width, int height)
         {
@@ -25,24 +25,13 @@ namespace NNLearning.DrawingTools
             MyLine = new Line();
             MyEllipse = new Ellipse();
         }
-
-        public void SetLineFunction (double a, double b)
-        {
-            _a = a;
-            _b = b;
-        }
-
-        public double LineOrd(double x)
-        {
-            return _a * x + _b;
-        }
         
         public void DrawLine(Canvas canvas )
         {
             MyLine.X1 = 0;
-            MyLine.Y1 = LineOrd(0);
+            MyLine.Y1 = LinearMath.LineOrd(0,A,B);
             MyLine.X2 = _width;
-            MyLine.Y2 = LineOrd(_width);
+            MyLine.Y2 = LinearMath.LineOrd(_width,A,B);
             MyLine.Stroke = Brushes.HotPink;
             MyLine.StrokeThickness = 2;
 
