@@ -2,6 +2,7 @@
 using NNLearning.Percetrons;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace NNLearning
@@ -19,15 +20,15 @@ namespace NNLearning
         {
             InitializeComponent();
 
-            Shapes = new ShapesGenerator((int)Window.Width, (int)Window.Height);
+            Shapes = new ShapesGenerator((int)Window.Width);
 
             Points = new PointsGenerator(100, (int)Window.Width, (int)Window.Height,Shapes.A,Shapes.B);
 
             Points.DrawCircles(Screen);
 
-            Sasa = new PerceptorOne(100, Points.Points, Shapes.A, Shapes.B);
+            Sasa = new PerceptorOne(100, (int)Window.Width,Points.Points, Shapes.A, Shapes.B);
 
-            Shapes.DrawLine(Screen);
+            Shapes.DrawLine(Screen,Brushes.HotPink);
 
             Sasa.Draw(Points.Points, Screen);
         }

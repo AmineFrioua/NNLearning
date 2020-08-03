@@ -10,6 +10,7 @@ namespace NNLearning.Percetrons
 {
     public class PerceptorOne
     {
+        public ShapesGenerator Line;
         public int[] TrueValues { get; set; }
 
         public double[] Weights { get; set; }
@@ -18,9 +19,11 @@ namespace NNLearning.Percetrons
 
         public Ellipse[] Ellipses { get; set; }
 
-        public PerceptorOne(int nums, Point[] points, double a, double b)
+        public PerceptorOne(int nums, int width,Point[] points, double a, double b)
         {
             TrueValues = new int[nums];
+
+            Line = new ShapesGenerator(width);
 
             Ellipses = new Ellipse[nums];
 
@@ -85,12 +88,18 @@ namespace NNLearning.Percetrons
                     };
 
                 }
+                Line.A = -Weights[0] / Weights[1];
+
+                Line.B = -Weights[2] / Weights[1];
+
+                Line.DrawLine(canvas, Brushes.Yellow);
                 canvas.Children.Add(Ellipses[i]);
 
                 Ellipses[i].SetValue(Canvas.LeftProperty, points[i].X);
 
                 Ellipses[i].SetValue(Canvas.TopProperty, points[i].Y);
             }
+
         }
 
         private int Guess(Point point, int trueValue)
