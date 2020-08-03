@@ -20,6 +20,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.ColumnSpan="5" Orientation="Horizontal">
             <Button Click="Button_Click" Content="Train" Grid.ColumnSpan="3"/>
+            <Button Click="Button2_Click" Content="Color" Grid.ColumnSpan="3"/>
             <Label Name="Num"/>
         </StackPanel>
         <StackPanel x:Name="PanelOne" Grid.Row="1" Grid.Column="0">

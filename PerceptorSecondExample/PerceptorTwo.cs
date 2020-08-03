@@ -17,7 +17,9 @@ namespace PerceptorSecondExample
 
         public int[] TrueValues { get; set; }
 
-        public double [] Weights { get; set; }
+        public double[] Weights { get; set; }
+
+        public int TrainingId = 0;
 
 
         private static readonly Random random = new Random();
@@ -62,39 +64,43 @@ namespace PerceptorSecondExample
 
         public void Train()
         {
-            for (int j = 0; j < Labels.Count; j++)
+            TrainingId %= 50; ;
+
+            string label = (string)Labels[TrainingId].Content;
+
+            for (int i = 0; i < Weights.Length; i++)
             {
-                int guess;
-
-                string label = (string)Labels[j].Content;
-
-                if (CalculateWeight(label) >= 0)
+                if (i < Weights.Length - 1)
                 {
-                    guess = 1;
-                    Labels[j].Background = Brushes.Green;
+                    Weights[i] += (TrueValues[TrainingId] - Guess(label)) * label[i] * 0.1;
                 }
                 else
                 {
-                    guess = -1;
-                    Labels[j].Background = Brushes.LightPink;
+                    Weights[i] += (TrueValues[TrainingId] - Guess(label)) * 0.1;
                 }
-
-                if (guess != TrueValues[j])
-                {
-                    for (int i = 0; i < Weights.Length; i++)
-                    {
-                        if (i < Weights.Length - 1)
-                        {
-                            Weights[i]+= (TrueValues[j] - guess) * label[i] * 0.1;
-                        }
-                        else
-                        {
-                            Weights[i] += (TrueValues[j] - guess) * 0.1;
-                        }
-                    }
-                }
-               
             }
+
+            TrainingId++;
+
+            Color();
+        }
+
+        public void Color()
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                string label = (string)Labels[i].Content;
+
+                if (CalculateWeight(label) >= 0)
+                {
+                    Labels[i].Background = Brushes.Green;
+                }
+                else
+                {
+                    Labels[i].Background = Brushes.LightPink;
+                }
+            }
+
         }
 
         private double CalculateWeight(string label)
@@ -102,6 +108,12 @@ namespace PerceptorSecondExample
             double total = Weights[0] * label[0] + Weights[1] * label[1] + Weights[2] * label[2] + Weights[3] * label[3] + Weights[4];
 
             return total;
+        }
+
+        private int Guess(string label)
+        {
+            if (CalculateWeight(label) >= 0) return 1;
+            else return -1;
         }
     }
 }

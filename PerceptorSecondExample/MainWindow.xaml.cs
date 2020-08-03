@@ -63,5 +63,10 @@ namespace PerceptorSecondExample
             i++;
             Num.Content = i.ToString();
         }
+
+        private void Button2_Click(object sender, RoutedEventArgs e)
+        {
+            Sasa.Color();
+        }
     }
 }
