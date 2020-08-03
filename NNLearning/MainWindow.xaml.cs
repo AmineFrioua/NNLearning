@@ -1,8 +1,7 @@
 ﻿using NNLearning.DrawingTools;
 using NNLearning.Percetrons;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Shapes;
+
 
 namespace NNLearning
 {
@@ -19,7 +18,12 @@ namespace NNLearning
         {
             InitializeComponent();
 
-            Shapes = new ShapesGenerator((int)Window.Width, (int)Window.Height);
+            Shapes = new ShapesGenerator((int)Window.Width, (int)Window.Height)
+            {
+                A = 12,
+
+                B = -3.14
+            };
 
             Points = new PointsGenerator(100, (int)Window.Width, (int)Window.Height,Shapes.A,Shapes.B);
 
