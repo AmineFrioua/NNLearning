@@ -18,8 +18,9 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="5">
-            <Button Click="Button_Click" Content="Train"/>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="5" Orientation="Horizontal">
+            <Button Click="Button_Click" Content="Train" Grid.ColumnSpan="3"/>
+            <Label Name="Num"/>
         </StackPanel>
         <StackPanel x:Name="PanelOne" Grid.Row="1" Grid.Column="0">
 
