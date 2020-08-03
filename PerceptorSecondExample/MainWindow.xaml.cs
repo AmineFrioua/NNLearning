@@ -22,6 +22,10 @@ namespace PerceptorSecondExample
     {
         public List<Label> Labels;
 
+        public PerceptorTwo Sasa;
+
+        public int i = 0;
+
         private static readonly Random random = new Random();
 
         public MainWindow()
@@ -42,6 +46,8 @@ namespace PerceptorSecondExample
                 if (i >= 30 && i < 40) PanelFor.Children.Add(Labels[i]);
                 if (i >= 40 && i < 50) PanelFive.Children.Add(Labels[i]);
             }
+
+            Sasa = new PerceptorTwo(Labels);
         }
 
         public static string RandomString(int length)
@@ -53,7 +59,9 @@ namespace PerceptorSecondExample
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            Sasa.Train();
+            i++;
+            Num.Content = i.ToString();
         }
     }
 }
