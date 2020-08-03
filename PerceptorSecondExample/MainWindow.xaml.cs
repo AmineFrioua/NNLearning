@@ -20,9 +20,40 @@ namespace PerceptorSecondExample
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<Label> Labels;
+
+        private static readonly Random random = new Random();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            Labels = new List<Label>(50);
+
+
+            for (int i = 0; i < 50; i++)
+            {
+                Labels.Add(new Label());
+                   Labels[i].Content = RandomString(4);
+
+                if (i >= 0 && i < 10) PanelOne.Children.Add(Labels[i]);
+                if (i >= 10 && i < 20) PanelTwo.Children.Add(Labels[i]);
+                if (i >= 20 && i < 30) PanelThree.Children.Add(Labels[i]);
+                if (i >= 30 && i < 40) PanelFor.Children.Add(Labels[i]);
+                if (i >= 40 && i < 50) PanelFive.Children.Add(Labels[i]);
+            }
+        }
+
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
