@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,8 @@ namespace PerceptorSecondExample
         public double[] Weights { get; set; }
 
         public int TrainingId = 0;
+
+        public int ErrorId = 0;
 
 
         private static readonly Random random = new Random();
@@ -46,41 +49,48 @@ namespace PerceptorSecondExample
             {
                 Labels[j].Foreground = Brushes.Red;
 
-                TrueValues[j] = -1;
-
                 string test = (string)Labels[j].Content;
 
-                for (int i = 0; i < 3; i++)
+                if (Regex.IsMatch(test, @"(\w)\1"))
                 {
-                    if (test[i] == test[i + 1])
-                    {
-                        TrueValues[j] = 1;
-
-                        Labels[j].Foreground = Brushes.Blue;
-                    }
+                    TrueValues[j] = 1;
+                    Labels[j].Foreground = Brushes.Blue;
+                }
+                else
+                {
+                    TrueValues[j] = -1;
+                    Labels[j].Foreground = Brushes.Red;
                 }
             }
         }
 
         public void Train()
         {
-            TrainingId %= 50; ;
-
-            string label = (string)Labels[TrainingId].Content;
-
-            for (int i = 0; i < Weights.Length; i++)
+            for (int i = 0; i < 50; i++)
             {
-                if (i < Weights.Length - 1)
+                string label = (string)Labels[i].Content;
+
+                int Error = TrueValues[i] - Guess(label);
+
+                if (Error != 0)
                 {
-                    Weights[i] += (TrueValues[TrainingId] - Guess(label)) * label[i] * 0.1;
-                }
-                else
-                {
-                    Weights[i] += (TrueValues[TrainingId] - Guess(label)) * 0.1;
+                    for (int j = 0; j < Weights.Length; j++)
+                    {
+                        if (j < Weights.Length - 1)
+                        {
+                            Weights[j] += Error * label[j] * 0.5;
+                        }
+                        else
+                        {
+                            Weights[j] += Error * 0.5;
+                        }
+                    }
+                    ErrorId ++;
                 }
             }
 
-            TrainingId++;
+            //ErrorId++;
+            //TrainingId++;
 
             Color();
         }
@@ -91,7 +101,7 @@ namespace PerceptorSecondExample
             {
                 string label = (string)Labels[i].Content;
 
-                if (CalculateWeight(label) >= 0)
+                if (Guess(label) > 0)
                 {
                     Labels[i].Background = Brushes.Green;
                 }

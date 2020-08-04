@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,16 +53,18 @@ namespace PerceptorSecondExample
 
         public static string RandomString(int length)
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWX";
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Sasa.Train();
-            i++;
-            Num.Content = i.ToString();
+
+                Sasa.Train();
+                i++;
+               Num.Content = i.ToString();
+            
         }
 
         private void Button2_Click(object sender, RoutedEventArgs e)
