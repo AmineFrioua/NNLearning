@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,5 +59,23 @@ namespace NNLibrary
             }
             return result;
         }
+
+
+        public static double[,] Transpose(double[,] A)
+        {
+            double[,] result = new double[A.GetLength(1), A.GetLength(0)];
+
+            for (int i = 0; i < A.GetLength(0); i++)
+            {
+                for (int j = 0; j < A.GetLength(1); j++)
+                {
+                    result[j, i] = A[i, j];
+
+                }
+            }
+
+            return result;
+        }
+
     }
 }
